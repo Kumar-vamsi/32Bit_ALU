@@ -1,12 +1,12 @@
-# 32Bit_ALU Simulation
+# EXP NO:3 32Bit_ALU Simulation
 
-# Aim: 
+## Aim: 
 
 Write a verilog code for 32 bit ALU supporting four logical and four arithmetic operations,use case statement and if statement for ALU behavioral modeling.
 
 To Verify the Functionality using Test Bench.
 
-# Tool Required:
+## Tool Required:
 
 Functional Simulation: Incisive Simulator (ncvlog, ncelab, ncsim)
 
@@ -31,11 +31,28 @@ A Blank Document opens up into which the following source code can be typed down
 (Note : File name should be with HDL Extension)
 
 ## a)To Verify the Functionality using Test Bench
-
-## Source Code – Using Case Statement :
-
-(Include program here)
-
+###  Source Code – Using Case Statement:
+```
+module alu_32bit_case(y,a,b,f);
+input [31:0]a;
+input [31:0]b;
+input [2:0]f;
+output reg [31:0]y;
+always@(*)
+begin
+case(f)
+3'b000:y=a&b; //AND Operation
+3'b001:y=a|b; //OR Operation
+3'b010:y=~(a&b); //NAND Operation
+3'b011:y=~(a|b); //NOR Operation
+3'b100:y=a+b; //Addition
+3'b101:y=a-b; //Subtraction
+3'b110:y=a*b; //Multiply
+default:y=32'bx;
+endcase
+end
+endmodule
+```
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
 ## Creating Test bench:
@@ -43,9 +60,28 @@ Use Save option or Ctrl+S to save the code or click on the save option from the 
 Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (alu_32bit_tb_case).
 
 ## Test Bench :
-
-(Include test bench program here)
-
+```
+module alu_32bit_tb_case;
+reg [31:0]a;
+reg [31:0]b;
+reg [2:0]f;
+wire [31:0]y;
+alu_32bit_case test2(.y(y),.a(a),.b(b),.f(f));
+initial
+begin
+a=32'h00000000;
+b=32'hFFFFFFFF;
+#10 f=3'b000;
+#10 f=3'b001;
+#10 f=3'b010;
+#10 f=3'b011;
+#10 f=3'b100;
+#10 f=3'b101;
+#10 f=3'b110;
+#10;$stop;
+end
+endmodule
+```
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
 ## Functional Simulation: 
@@ -59,37 +95,34 @@ source /cadence/install/cshrc (mention the path of the tools)
 (The path of cshrc could vary depending on the installation destination)
       
 After this you can see the window like below 
+![Screenshot 2024-11-17 135753](https://github.com/user-attachments/assets/6bfbae5a-e4e5-4df1-98ee-9157efe3642e)
 
 ### Fig 2: Invoke the Cadence Environment
 
 To Launch Simulation tool 
 
-•linux:/> nclaunch -new& // “-new” option is used for invoking NCVERILOG for the first time for any design 
++linux:/> nclaunch -new& // “-new” option is used for invoking NCVERILOG for the first time for any design 
 
 or
 
-•linux:/> nclaunch& // On subsequent calls to NCVERILOG 
++linux:/> nclaunch& // On subsequent calls to NCVERILOG 
 
 
 It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .
+![Screenshot 2024-11-17 135823](https://github.com/user-attachments/assets/5365b816-cd6c-4f68-b9b4-f80a46b3c965)
 
 ### Fig 3: Setting Multi-step simulation
-
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure 
-
 Click the cds.lib file and save the file by clicking on Save option 
+![Screenshot 2024-11-17 135842](https://github.com/user-attachments/assets/a9a5dced-42c5-433f-aea2-510b08c2da04)
 
 ### Fig 4:cds.lib file Creation
-
 Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. 
-
 Select “Don’t include any libraries (verilog design)” from “New cds.lib file” and click on “OK” as in below figure .
-
 We are simulating verilog design without using any libraries 
-
 A Click “OK” in the “nclaunch: Open Design Directory” window as shown in below figure 
+![Screenshot 2024-11-17 135924](https://github.com/user-attachments/assets/d0c6c997-46a0-4b95-af3f-0620241664ee)
 
-![image](https://github.com/user-attachments/assets/d5202b97-ee5c-4e0e-9eaf-5f3fa733e546)
 
 ### Fig 5: Selection of Don’t include any libraries
 
@@ -172,25 +205,16 @@ Outputs: Simulation log file, waveforms for debugging
 Simulation allow to dump design and test bench signals into a waveform 
 
 Steps for simulation – Run the simulation command with simulator options
+![image](https://github.com/user-attachments/assets/1c1b430b-a57e-4562-9ef2-5d4e2c3fa60c)
 
 ## Fig 9: Design Browser window for simulation
-
+![image](https://github.com/user-attachments/assets/4305b909-4de4-4fa8-aaa5-bf5ed987fda2)
 ## Fig 10:Simulation Waveform Window
-
-## Fig 11:Simulation Waveform Window
-
-### Result
-
-The functionality of a 32-bit ALU was successfully verified using a test bench and simulated with the nclaunch tool.
+![image](https://github.com/user-attachments/assets/60f9f546-5b2e-4200-9f08-f36cb01d7317)
 
 
-
-
-
-
-
-
-
+## Result:
+The functionality of a 4bit_up-down asynchronous reset Counter was successfully verified using a test bench and simulated with the nclaunch tool.
 
 
 
